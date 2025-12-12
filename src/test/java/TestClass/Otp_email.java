@@ -1,12 +1,14 @@
 package TestClass;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.json.JSONObject;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.Duration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,51 +22,86 @@ public class Otp_email {
                 "C:\\Users\\INX\\Downloads\\chromedriver-win64 (1)\\chromedriver-win64\\chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         try {
-            // ================= Demo Page =================
-            driver.get("file:///C:/Users/INX/OneDrive/Documents/otp_demo.html");
+            // ------------------- OPEN DEMO PAGE -------------------
+            driver.get("file:///C:/Users/INX/OneDrive/Documents/index.html");
             System.out.println("Demo page loaded");
+            Thread.sleep(2000);
 
-            // ================= Yopmail Inbox =================
-            String yopUser = "kennedy.parks"; // your Yopmail username
-            String inboxUrl = "https://yopmail.com/en/?" + yopUser; // Updated URL structure
-            driver.get(inboxUrl);
+            String demoTab = driver.getWindowHandle();
 
-            // Wait for the email iframe to load
-            wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("ifmail"));
+            // ------------------- ENTER EMAIL AND SEND OTP -------------------
+            String yopEmail = "kennedy.parks@yopmail.com";
 
-            // Read email content
-            WebElement emailBody = wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("body")));
-            String content = emailBody.getText();
-            System.out.println("Email Content: " + content);
+            WebElement emailInput = wait.until(ExpectedConditions.elementToBeClickable(By.id("emailInput")));
+            emailInput.clear();
+            emailInput.sendKeys(yopEmail);
+            Thread.sleep(1000);
 
-            // Extract 6-digit OTP
-            Pattern pattern = Pattern.compile("\\b\\d{6}\\b");
-            Matcher matcher = pattern.matcher(content);
-            String otp = matcher.find() ? matcher.group() : null;
+            WebElement sendOtpBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("sendOtpBtn")));
+            sendOtpBtn.click();
+            System.out.println("Send OTP button clicked");
+            Thread.sleep(2000);
 
-            if (otp == null) {
-                System.out.println("OTP not found in email. Exiting test.");
-                return;
+            // ------------------- HANDLE ALERT -------------------
+            try {
+                Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+                System.out.println("Alert displayed: " + alert.getText());
+                alert.accept();
+            } catch (Exception e) {
+                System.out.println("No alert displayed.");
             }
 
-            System.out.println("Fetched OTP: " + otp);
+            // ------------------- FETCH OTP FROM YOPMAIL -------------------
+            driver.switchTo().newWindow(WindowType.TAB);
+            driver.get("https://yopmail.com/en/?" + yopEmail.split("@")[0]);
+            System.out.println("Yopmail inbox opened");
+            Thread.sleep(5000);
 
-            // ================= Submit OTP =================
-            driver.switchTo().defaultContent(); // back to demo page
+            // Refresh once
+            driver.navigate().refresh();
+            Thread.sleep(7000);
+
+            // Open inbox iframe
+            driver.switchTo().frame("ifinbox");
+            WebElement firstMail = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.m")));
+            firstMail.click();
+            Thread.sleep(7000);
+
+            // Switch to email body
+            driver.switchTo().defaultContent();
+            driver.switchTo().frame("ifmail");
+
+            String mailText = driver.findElement(By.tagName("body")).getText();
+            Matcher m = Pattern.compile("\\b\\d{6}\\b").matcher(mailText);
+            String fetchedOtp = m.find() ? m.group() : null;
+            System.out.println("Fetched OTP from email: " + fetchedOtp);
+
+            // ------------------- RETURN TO DEMO PAGE -------------------
+            driver.switchTo().window(demoTab);
+            Thread.sleep(2000);
+
+            // Enter OTP into input
             WebElement otpInput = wait.until(ExpectedConditions.elementToBeClickable(By.id("otpInput")));
-            WebElement submitBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("submitBtn")));
-
-            otpInput.sendKeys(otp);
+            otpInput.click();
+            Thread.sleep(500);
+            otpInput.sendKeys(Keys.CONTROL + "a");
+            otpInput.sendKeys(Keys.DELETE);
+            otpInput.sendKeys(fetchedOtp);
             Thread.sleep(1000);
+
+            // Submit OTP
+            WebElement submitBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("submitBtn")));
             submitBtn.click();
+            Thread.sleep(2000);
 
             WebElement result = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("result")));
-            System.out.println("Result: " + result.getText());
+            System.out.println("RESULT: " + result.getText());
 
-            Thread.sleep(2000);
+            System.out.println("Test finished. Browser will stay open for observation.");
+            new java.util.Scanner(System.in).nextLine(); // Keep browser open
 
         } finally {
             driver.quit();
