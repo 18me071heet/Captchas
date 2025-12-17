@@ -22,6 +22,7 @@ public class Temp_otp {
 		        try {
 		            driver.get("C:\\Users\\INX\\OneDrive\\Documents\\temp_otp.html");
 
+
 		            // Wait for user to manually enter mobile number and click Send OTP
 		            System.out.println("Please enter your phone number in UI and click Send OTP...");
 		            new Scanner(System.in).nextLine(); // pause until user presses Enter

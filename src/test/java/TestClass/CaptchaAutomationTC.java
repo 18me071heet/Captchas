@@ -39,7 +39,7 @@ public class CaptchaAutomationTC {
 	            driver = new ChromeDriver();
 
 	            // 2️⃣ Load the demo page
-	            driver.get("file:///C:/Users/INX/OneDrive/Documents/mathematical_captcha.html");
+	            driver.get("file:///C:/Users/INX/OneDrive/Documents/captcha_demo.html");
 	            System.out.println("Page loaded successfully");
 
 	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
