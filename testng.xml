@@ -7,12 +7,15 @@
   <classes>
   
           <!-- <class name="TestClass.CaptchaAutomationTC"></class>-->
-           <!-- <class name="TestClass.MatheMaticalCaptcha_Automation"></class>-->
-                <!--   <class name="TestClass.Recaptcha_Automation"></class>-->
+             <!--   <class name="TestClass.MatheMaticalCaptcha_Automation"></class>-->
+               <!--      <class name="TestClass.Recaptcha_Automation"></class>-->
                  
                  <!--    <class name="TestClass.OtpVerification_Automation"></class>-->
                  
-                 <class name="TestClass.Otp_email"></class>
+                       <class name="TestClass.Otp_email"></class>
+                 <!--   <class name="TestClass.TwilioOTP"></class>-->
+                 
+                 <!--     <class name="TestClass.Temp_otp"></class>-->
   
   
   </classes>
