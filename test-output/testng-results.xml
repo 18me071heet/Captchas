@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-12-17T10:32:30 IST" name="Suite" finished-at="2025-12-17T10:32:33 IST" duration-ms="3116">
+  <suite started-at="2025-12-19T13:23:41 IST" name="Suite" finished-at="2025-12-19T13:24:00 IST" duration-ms="18928">
     <groups>
     </groups>
-    <test started-at="2025-12-17T10:32:30 IST" name="Test" finished-at="2025-12-17T10:32:33 IST" duration-ms="3116">
+    <test started-at="2025-12-19T13:23:41 IST" name="Test" finished-at="2025-12-19T13:24:00 IST" duration-ms="18928">
       <class name="TestClass.CaptchaAutomationTC">
-        <test-method signature="testCaptcha()[pri:0, instance:TestClass.CaptchaAutomationTC@7dcf94f8]" started-at="2025-12-17T10:32:30 IST" name="testCaptcha" finished-at="2025-12-17T10:32:33 IST" duration-ms="3065" status="PASS">
+        <test-method signature="testCaptcha()[pri:0, instance:TestClass.CaptchaAutomationTC@752325ad]" started-at="2025-12-19T13:23:41 IST" name="testCaptcha" finished-at="2025-12-19T13:24:00 IST" duration-ms="18354" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testCaptcha -->
