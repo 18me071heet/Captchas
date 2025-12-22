@@ -1,0 +1,6 @@
+10:32:20.404 [main] INFO  TestClass.Strum_Captcha - Tc-01 --> Verify user is able to enter email 
+10:32:23.663 [main] INFO  TestClass.Strum_Captcha - Tc-02 --> Verify user is able to enter password 
+10:32:29.797 [main] INFO  TestClass.Strum_Captcha - TC-03 --> Refresh CAPTCHA and capture new value
+10:32:30.081 [main] INFO  TestClass.Strum_Captcha - New CAPTCHA value: SnHS5
+10:32:30.081 [main] INFO  TestClass.Strum_Captcha - TC-04 --> Enter CAPTCHA
+10:32:35.260 [main] INFO  TestClass.Strum_Captcha - Tc-03 --> Verify user is able to login by clicking login button

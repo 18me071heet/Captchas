@@ -10,12 +10,15 @@
 </Console>
 
 
-<RollingFile name="File" fileName="${basePath}/Tourwit_automation.log" filePattern="${basePath}/CaptchAutomation-%d{yyyy-MM-dd}.log">
+<RollingFile name="File" fileName="${basePath}/Captchas_Automation.log" filePattern="${basePath}/AirBnB_automation-%d{yyyy-MM-dd}.log">
 <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
 <sizeBasedTriggeringPolicy size="5000"/>
 </RollingFile>
 
+
 </Appenders>
+
+
 
 <Loggers>
 <Root level="Info">
